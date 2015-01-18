@@ -6,7 +6,8 @@
 [Bb]uild
 [Ll]ibrary/
 sysinfo.txt
- 
+output/*
+
  # ===================================== #
  # Visual Studio / MonoDevelop generated #
  # ===================================== #
