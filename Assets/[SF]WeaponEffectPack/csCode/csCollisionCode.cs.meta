@@ -2,7 +2,12 @@ fileFormatVersion: 2
 guid: e0b3d90d9683d76478d83d0f6f7f987d
 MonoImporter:
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - Code: {instanceID: 0}
+  - FlameParticle: {instanceID: 0}
+  - FlameParticle2: {instanceID: 0}
+  - explosionSound: {fileID: 8300000, guid: 81c5b1f0936a40a41bc361d8386636be, type: 3}
+  - explosionSoundSource: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

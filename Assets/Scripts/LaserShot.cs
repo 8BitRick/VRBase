@@ -6,6 +6,8 @@ public class LaserShot : MonoBehaviour {
     public GameObject targetObj;
     public GameObject laserBall;
     public Vector3 offset = new Vector3(0.5f, 0.75f, 0.0f);
+    public AudioSource shootingSound;
+    public AudioSource explosionSoundSource;
     public bool clicking = false;
 
 	// Use this for initialization
@@ -31,7 +33,10 @@ public class LaserShot : MonoBehaviour {
             if (!clicking)
             {
                 Ray pickRay = GetMousePickRay();
-                Instantiate(laserBall, pickRay.origin, Quaternion.LookRotation(pickRay.direction));
+                Object lbInstance = Instantiate(laserBall, pickRay.origin, Quaternion.LookRotation(pickRay.direction));
+                //GameObject lb = (GameObject)lbInstance;
+                //lb.
+                shootingSound.Play();
             }
             clicking = true;
         }

@@ -82,6 +82,10 @@ public class csCollisionCode : MonoBehaviour {
                             // Quick hack to make physics work when we hit something
                             if(hit.collider.rigidbody != null)
                                 hit.collider.rigidbody.AddExplosionForce(10.0f, hit.point, 10.0f, 0.0f, ForceMode.Impulse);
+                            GameObject ls = GameObject.Find("LaserShot");
+                            LaserShot lss = ls.GetComponent<LaserShot>();
+                            lss.transform.position = hit.point;
+                            lss.explosionSoundSource.Play();
                         }
                         Code.DestroyObj();
                     }
