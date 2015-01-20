@@ -79,6 +79,9 @@ public class csCollisionCode : MonoBehaviour {
                         {
                             isExplosionPlayed = false;
                             Code.MakeExplosion(hit.point, hit.collider.transform.rotation);
+                            // Quick hack to make physics work when we hit something
+                            if(hit.collider.rigidbody != null)
+                                hit.collider.rigidbody.AddExplosionForce(10.0f, hit.point, 10.0f, 0.0f, ForceMode.Impulse);
                         }
                         Code.DestroyObj();
                     }
