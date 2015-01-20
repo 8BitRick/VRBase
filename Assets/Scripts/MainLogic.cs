@@ -13,6 +13,7 @@ public class MainLogic : MonoBehaviour {
             {
                 GameObject cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
                 cube.AddComponent<Rigidbody>();
+                cube.tag = "ENEMY";
                 cube.transform.position = new Vector3(x, y, 0);
             }
         }
