@@ -20,8 +20,11 @@ public class HitDetection : MonoBehaviour {
 
 	void OnTriggerEnter(Collider other) {
 
-		// When a hit is detected, show the text
+		// When a hit is detected, show the text...
 		hitText.color = hitTextColor;
+
+		// ...and send an event that stops the game.
+		EventManager.Instance.QueueEvent (new Event_GameState (false));
 	}
 
 

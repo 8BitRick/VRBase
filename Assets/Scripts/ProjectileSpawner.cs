@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class ProjectileSpawner : MonoBehaviour {
+public class ProjectileSpawner : MonoBehaviour, IEventListener {
 
 	// Allow adjustment of GameObjects (the projectiles) and the fire rate (stored in seconds) through the editor
 	public List<GameObject> projectiles = new List<GameObject>();
@@ -12,18 +12,30 @@ public class ProjectileSpawner : MonoBehaviour {
 	private float nextFire = 0.0F;
 	private int randomObjectIndex;
 	private Vector3 newRandomPosition;
+	private bool gameIsRunning = false;
 
+
+	void Awake() {
+
+		// Attach event listeners
+		EventManager.Instance.AttachListener (this, "Event_GameState", this.HandleGameState);
+
+		newRandomPosition = transform.position;
+
+	}
 
 	// Use FixedUpdate because there are physics calculations here
 	void FixedUpdate() {
 
-		// If the current time is greater than the next fire time...
-		if (Time.time > nextFire) {
+		// If the current time is greater than the next fire time and the game is running...
+		if (Time.time > nextFire && gameIsRunning) {
+
 			// ...then throw another projectile...
 			FireProjectile();
 
 			// ...and randomize the position of the spawner.
-			newRandomPosition = new Vector3(Random.Range(-2F, 2F), Random.Range(-2F, 2F), 0);
+			newRandomPosition = new Vector3(Random.Range(-2F, 2F), Random.Range(-2F, 2F), transform.position.z);
+
 		}
 
 
@@ -51,6 +63,22 @@ public class ProjectileSpawner : MonoBehaviour {
 		// Destroy the game object at the same rate as the fire rate
 		Destroy(projectile, fireRate);
 
+	}
+
+
+	/// <summary>
+	/// Event handler: Gets the current game state.
+	/// </summary>
+	public bool HandleGameState(IEvent evt) {
+		
+		Event_GameState castEvent = evt as Event_GameState;
+		
+		// Set the current game state
+		gameIsRunning = castEvent.m_gameState;
+
+		// Returning false allows this event to propogate to other listeners
+		return false;
+		
 	}
 
 	
