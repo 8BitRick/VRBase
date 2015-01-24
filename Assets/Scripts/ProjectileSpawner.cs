@@ -13,18 +13,25 @@ public class ProjectileSpawner : MonoBehaviour {
 	private int randomObjectIndex;
 	private Vector3 newRandomPosition;
 
+
 	// Use FixedUpdate because there are physics calculations here
 	void FixedUpdate() {
 
-		// If the current time is greater than the next fire time, then throw another projectile at the player
+		// If the current time is greater than the next fire time...
 		if (Time.time > nextFire) {
+			// ...then throw another projectile...
 			FireProjectile();
+
+			// ...and randomize the position of the spawner.
 			newRandomPosition = new Vector3(Random.Range(-2F, 2F), Random.Range(-2F, 2F), 0);
 		}
 
-		RandomizePosition();
+
+		// ...move the spawner to the new random position.
+		transform.position = Vector3.Lerp(transform.position, newRandomPosition, 2F * Time.deltaTime);
 
 	}
+
 
 	void FireProjectile() {
 
@@ -41,13 +48,10 @@ public class ProjectileSpawner : MonoBehaviour {
 		                                       Random.Range(500, 1000),
 		                                       Random.Range(500, 1000));
 
+		// Destroy the game object at the same rate as the fire rate
 		Destroy(projectile, fireRate);
 
 	}
 
-	void RandomizePosition ()
-	{
-		transform.position = Vector3.Lerp(transform.position, newRandomPosition, 2F * Time.deltaTime);
-	}
 	
 }
