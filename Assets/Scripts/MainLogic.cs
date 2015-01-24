@@ -5,6 +5,13 @@ public class MainLogic : MonoBehaviour, IEventListener {
 
 	private bool gameIsRunning;
 
+	void Awake() {
+
+		// Attach event listeners
+		EventManager.Instance.AttachListener (this, "Event_GameState", this.HandleGameState);
+
+	}
+
 	void Update() {
 
 		// Game start and restart logic goes here

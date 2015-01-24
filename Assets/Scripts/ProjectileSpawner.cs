@@ -9,7 +9,7 @@ public class ProjectileSpawner : MonoBehaviour, IEventListener {
 	public float fireRate = 2F;
 	public float velocity = 450F;
 
-	private float nextFire = 0.0F;
+	private float nextFire = 5F;
 	private int randomObjectIndex;
 	private Vector3 newRandomPosition;
 	private bool gameIsRunning = false;
@@ -34,7 +34,7 @@ public class ProjectileSpawner : MonoBehaviour, IEventListener {
 			FireProjectile();
 
 			// ...and randomize the position of the spawner.
-			newRandomPosition = new Vector3(Random.Range(-2F, 2F), Random.Range(-2F, 2F), transform.position.z);
+			newRandomPosition = new Vector3(Random.Range(-1F, 1F), Random.Range(-0.5F, 0.5F), transform.position.z);
 
 		}
 
