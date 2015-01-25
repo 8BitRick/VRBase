@@ -5,6 +5,7 @@ using System.Collections.Generic;
 public class CrowdController : MonoBehaviour, IEventListener {
 
 	public GameObject reporterPrefab;
+	public List<AudioClip> crowdSounds = new List<AudioClip>();
 
 	private List<GameObject> crowd = new List<GameObject>();
 	private Animator anim;
@@ -14,6 +15,7 @@ public class CrowdController : MonoBehaviour, IEventListener {
 	private float pickCrowdRate = 2F;
 	private float pickCrowdMember = 5F;
 	private bool gameIsRunning;
+	private int crowdSoundIndex;
 	private int currentCrowdMemberIndex;
 	private int previousCrowdMemberIndex = 100;
 	int talkHash = Animator.StringToHash("Talk");
@@ -58,11 +60,14 @@ public class CrowdController : MonoBehaviour, IEventListener {
 			// Pick a new crowd member
 			currentCrowdMemberIndex = Random.Range(0, crowd.Count);
 
-			Debug.Log(currentCrowdMemberIndex);
-
-			// Play the crowd member animation and a sound
+			// Play the crowd member animation
 			anim = crowd[currentCrowdMemberIndex].GetComponent<Animator>();
 			anim.SetTrigger(talkHash);
+
+			crowdSoundIndex = Random.Range(0, crowdSounds.Count);
+
+			// Play crowd member sound
+			AudioSource.PlayClipAtPoint(crowdSounds[crowdSoundIndex], crowd[currentCrowdMemberIndex].transform.position);
 
 			previousCrowdMemberIndex = currentCrowdMemberIndex;
 			
