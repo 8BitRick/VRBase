@@ -9,6 +9,7 @@ public class HitDetection : MonoBehaviour {
 
 		// Send an event that stops the game.
 		EventManager.Instance.QueueEvent (new Event_GameState (false));
+        EventManager.Instance.QueueEvent(new Event_AllowStart(false));
 
 	}
 

@@ -9,7 +9,7 @@ public class GUIManager : MonoBehaviour, IEventListener {
 	
 	private Color clearColor;
 	private bool gameIsRunning;
-
+    private bool allowStart = false;
 
 	void Awake () {
 		
@@ -19,6 +19,7 @@ public class GUIManager : MonoBehaviour, IEventListener {
 		
 		// Attach event listeners
 		EventManager.Instance.AttachListener (this, "Event_GameState", this.HandleGameState);
+        EventManager.Instance.AttachListener(this, "Event_AllowStart", this.HandleAllowStart);
 		
 	}
 
@@ -26,7 +27,7 @@ public class GUIManager : MonoBehaviour, IEventListener {
 	// Update is called once per frame
 	void Update () {
 
-		if (!gameIsRunning) {
+		if (!gameIsRunning && allowStart) {
 			guiText.color = guiTextColor;
 			guiText.text = "Press Space \n to Start";
 		} else {
@@ -51,5 +52,18 @@ public class GUIManager : MonoBehaviour, IEventListener {
 		
 	}
 
+    /// <summary>
+    /// Event handler: Gets the allow Start.
+    /// </summary>
+    public bool HandleAllowStart(IEvent evt)
+    {
+        Event_AllowStart castEvent = evt as Event_AllowStart;
+
+        // Set the current game state
+        allowStart = castEvent.m_allowStart;
+
+        // Returning false allows this event to propogate to other listeners
+        return false;
+    }
 
 }

@@ -33,7 +33,6 @@ public class EventManager : MonoBehaviour {
 	private Hashtable m_listenerTable = new Hashtable();
 	private Queue m_eventQueue = new Queue();
 	
-	
 	// override so we don't have the typecast the object
 	public static EventManager Instance  {
 		get {
